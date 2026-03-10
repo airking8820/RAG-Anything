@@ -33,6 +33,7 @@ jobs:
 
       - name: Run dependency vulnerability audit
         run: |
-          # Use --no-deps to avoid resolver depth failures on broad/unbounded transitive trees
-          # while still auditing declared direct requirements for known CVEs.
-          pip-audit --no-deps -r requirements.txt
+          # Avoid full resolver explosions on this broad dependency set:
+          # install direct requirements only (no transitive solve), then audit installed set.
+          pip install --no-deps -r requirements.txt
+          pip-audit --local
