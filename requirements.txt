@@ -5,6 +5,9 @@ lightrag-hku
 mineru[core]
 # Progress bars for batch processing
 tqdm
+# Security floor pins for transitive dependencies flagged by pip-audit
+gradio>=6.7.0
+Pillow>=12.1.1
 # Note: Optional dependencies are now defined in setup.py extras_require:
 # - [image]: Pillow>=10.0.0 (for BMP, TIFF, GIF, WebP format conversion)
 # - [text]: reportlab>=4.0.0 (for TXT, MD to PDF conversion)
