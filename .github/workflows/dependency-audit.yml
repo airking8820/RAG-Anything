@@ -1,0 +1,39 @@
+name: Dependency Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "19 3 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  pip-audit:
+    name: Pip Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies for audit
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit
+
+      - name: Run dependency vulnerability audit
+        run: |
+          # Avoid full resolver explosions on this broad dependency set:
+          # install direct requirements only (no transitive solve), then audit installed set.
+          pip install --no-deps -r requirements.txt
+          pip-audit --local

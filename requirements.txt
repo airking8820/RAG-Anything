@@ -1,8 +1,12 @@
+# Security floor pins for transitive dependencies flagged by pip-audit
+gradio>=6.7.0
 huggingface_hub
 # LightRAG packages
 lightrag-hku
 # MinerU 2.0 packages (replaces magic-pdf)
 mineru[core]
+pdfminer-six>=20251230
+Pillow>=12.1.1
 # Progress bars for batch processing
 tqdm
 # Note: Optional dependencies are now defined in setup.py extras_require:
